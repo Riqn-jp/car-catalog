@@ -3,21 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cute Vehicle Catalog</title>
+  <title>Vehicle Catalog</title>
  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
  
   <style>
     :root {
-      --bg-color: #fcf8ff;
+      --bg-color: #f8f8f6;
       --card-bg: #ffffff;
-      --primary-pink: #ffb7c5;
-      --primary-purple: #d8b4fe;
-      --text-main: #5a4b5c;
-      --text-sub: #908194;
-      --border-color: #f0e6f5;
+      --primary: #2d3748;
+      --accent: #6b7c96;
+      --accent-soft: #edf2f7;
+      --text-main: #2d3748;
+      --text-sub: #718096;
+      --border-color: #e2e8f0;
+      --star-color: #f59e0b;
+      --radius: 12px;
     }
 
     * {
@@ -27,42 +30,43 @@
     }
 
     body {
-      font-family: 'M PLUS Rounded 1c', 'Fredoka', sans-serif;
+      font-family: 'Zen Kaku Gothic New', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding: 30px 20px 80px 20px;
+      padding: 40px 20px 80px 20px;
       min-height: 100vh;
-      background-image: linear-gradient(135deg, #fff0f5 0%, #f3e8ff 50%, #e6f9ff 100%);
+      line-height: 1.6;
     }
 
     /* ヘッダーエリア */
     header {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 32px;
     }
 
     h1 {
-      font-size: 2rem;
+      font-family: 'Plus Jakarta Sans', 'Zen Kaku Gothic New', sans-serif;
+      font-size: 1.8rem;
       font-weight: 700;
-      color: #7c5c8a;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     /* コントロールエリア */
     .controls-wrapper {
-      max-width: 1100px;
-      margin: 0 auto 25px auto;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      padding: 18px 20px;
-      border-radius: 20px;
-      border: 2px solid #ffffff;
-      box-shadow: 0 8px 20px rgba(200, 175, 215, 0.15);
+      max-width: 1000px;
+      margin: 0 auto 28px auto;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 16px;
     }
 
     .search-sort-bar {
@@ -75,50 +79,53 @@
       flex: 2;
       min-width: 200px;
       padding: 10px 16px;
-      border-radius: 14px;
-      border: 2px solid var(--border-color);
-      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
       color: var(--text-main);
-      font-size: 13px;
+      font-size: 14px;
       font-family: inherit;
       outline: none;
+      transition: all 0.2s;
     }
 
     .sort-select {
       flex: 1;
       min-width: 150px;
       padding: 10px 14px;
-      border-radius: 14px;
-      border: 2px solid var(--border-color);
-      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
       color: var(--text-main);
-      font-size: 13px;
+      font-size: 14px;
       font-family: inherit;
       outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
     .search-input:focus, .sort-select:focus {
-      border-color: var(--primary-purple);
+      border-color: var(--accent);
+      background-color: #ffffff;
     }
 
     /* 車両追加トグルボタン */
     .btn-toggle-form {
-      padding: 10px 18px;
-      background: linear-gradient(135deg, #ffb7c5 0%, #f48fb1 100%);
+      padding: 10px 20px;
+      background-color: var(--primary);
       color: #ffffff;
       border: none;
-      border-radius: 14px;
-      font-weight: 700;
+      border-radius: 8px;
+      font-weight: 500;
       font-family: inherit;
       cursor: pointer;
-      font-size: 13px;
-      box-shadow: 0 4px 10px rgba(255, 183, 197, 0.4);
-      transition: transform 0.2s;
+      font-size: 14px;
+      transition: opacity 0.2s, transform 0.1s;
       white-space: nowrap;
     }
 
     .btn-toggle-form:hover {
-      transform: translateY(-2px);
+      opacity: 0.9;
     }
 
     .filter-buttons {
@@ -126,186 +133,197 @@
       gap: 8px;
       flex-wrap: wrap;
       align-items: center;
+      padding-top: 4px;
     }
 
     .filter-btn {
-      background-color: #ffffff;
+      background-color: transparent;
       color: var(--text-sub);
-      border: 2px solid var(--border-color);
-      padding: 5px 14px;
-      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 500;
       font-family: inherit;
       transition: all 0.2s ease;
     }
 
     .filter-btn:hover, .filter-btn.active {
-      background-color: var(--primary-purple);
+      background-color: var(--primary);
       color: #ffffff;
-      border-color: var(--primary-purple);
+      border-color: var(--primary);
     }
 
     .filter-btn.fav-btn {
-      border-color: #ffe082;
-      color: #f5a623;
+      border-color: #fef3c7;
+      background-color: #fffbeb;
+      color: #d97706;
     }
 
     .filter-btn.fav-btn:hover, .filter-btn.fav-btn.active {
-      background-color: #ffe082;
-      color: #5a4b5c;
+      background-color: #f59e0b;
+      border-color: #f59e0b;
+      color: #ffffff;
     }
 
-    /* アコーディオン形式の追加フォーム */
+    /* 追加フォーム */
     .add-form-container {
-      max-width: 1100px;
-      margin: 0 auto 25px auto;
-      background: rgba(255, 255, 255, 0.95);
-      border: 2px solid var(--primary-pink);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(255, 183, 197, 0.2);
+      max-width: 1000px;
+      margin: 0 auto 28px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       display: none;
     }
 
     .add-form-container.open {
       display: block;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.25s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
+      from { opacity: 0; transform: translateY(-8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-      margin-bottom: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .form-group input {
       width: 100%;
       padding: 10px 14px;
-      border-radius: 12px;
-      border: 2px solid var(--border-color);
-      background-color: #faf7fc;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
       color: var(--text-main);
-      font-size: 12px;
+      font-size: 13px;
       font-family: inherit;
       outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+      background-color: #ffffff;
     }
 
     .form-buttons {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn-submit {
       flex: 3;
       padding: 10px;
-      background: var(--primary-purple);
+      background: var(--primary);
       color: #ffffff;
-      font-weight: 700;
+      font-weight: 500;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       font-family: inherit;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
 
     .btn-submit:hover {
-      background: #c084fc;
+      opacity: 0.9;
     }
 
     .btn-close-form {
       flex: 1;
       padding: 10px;
-      background: #e5e7eb;
-      color: #4b5563;
-      font-weight: 700;
+      background: #edf2f7;
+      color: var(--text-sub);
+      font-weight: 500;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       font-family: inherit;
       transition: background 0.2s;
     }
 
     .btn-close-form:hover {
-      background: #d1d5db;
+      background: #e2e8f0;
     }
 
     /* カタログ情報バー */
     .catalog-meta {
-      max-width: 1100px;
-      margin: 0 auto 15px auto;
+      max-width: 1000px;
+      margin: 0 auto 16px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 5px;
-      font-size: 12px;
+      padding: 0 4px;
+      font-size: 13px;
       color: var(--text-sub);
-      font-weight: 700;
+      font-weight: 500;
     }
 
     /* カタログのレイアウト */
     .catalog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     /* 車のカードデザイン */
     .car-card {
       background-color: var(--card-bg);
-      border-radius: 18px;
+      border-radius: var(--radius);
       overflow: hidden;
-      border: 2px solid #ffffff;
-      box-shadow: 0 6px 16px rgba(180, 160, 190, 0.12);
-      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
     .car-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(180, 160, 190, 0.22);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
     }
 
     .btn-fav-star {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      color: #dddddd;
-      font-size: 16px;
-      width: 32px;
-      height: 32px;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      color: #cbd5e0;
+      font-size: 14px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s;
       z-index: 2;
     }
 
     .btn-fav-star.active {
-      color: #ffb300;
+      color: var(--star-color);
+      background: #ffffff;
     }
 
     .car-img-container {
       width: 100%;
-      height: 165px;
-      background-color: #f7f3f9;
+      height: 180px;
+      background-color: #edf2f7;
       overflow: hidden;
     }
 
@@ -313,10 +331,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .car-card:hover img {
+      transform: scale(1.03);
     }
 
     .car-info {
-      padding: 15px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -324,20 +347,23 @@
 
     .car-brand {
       align-self: flex-start;
-      background-color: #f3e8ff;
-      color: #8c52ff;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 8px;
-      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background-color: var(--accent-soft);
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
     }
 
     .car-name {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
     }
 
     .card-footer {
@@ -345,42 +371,46 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px dashed #f5eef8;
-      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
     }
 
     .car-price {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #ff758c;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
     }
 
     .btn-delete {
       background-color: transparent;
-      color: #b0a5b5;
+      color: var(--text-sub);
       border: none;
       cursor: pointer;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 500;
       font-family: inherit;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
     }
 
     .btn-delete:hover {
-      color: #ff4d6d;
+      color: #e53e3e;
+      background-color: #fff5f5;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🏎️✨ Vehicle Catalog</h1>
+    <h1>Vehicle Catalog</h1>
   </header>
 
   <!-- コントロールエリア -->
   <div class="controls-wrapper">
     <div class="search-sort-bar">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 車名やメーカー名で検索..." oninput="applyFilters()">
+      <input type="text" id="searchInput" class="search-input" placeholder="検索: 車名、メーカー名..." oninput="applyFilters()">
      
       <select id="sortSelect" class="sort-select" onchange="applyFilters()">
         <option value="default">登録順</option>
@@ -389,7 +419,7 @@
         <option value="name-asc">名前順 (A-Z)</option>
       </select>
 
-      <button class="btn-toggle-form" onclick="toggleForm()">＋ 車を追加</button>
+      <button class="btn-toggle-form" onclick="toggleForm()">＋ 車両を追加</button>
     </div>
 
     <div id="filterContainer" class="filter-buttons"></div>
@@ -432,9 +462,9 @@
 
   <script>
     const initialCars = [
-      { id: 1, brand: "Grotti", name: "Itali RSX", price: 3465000, image: "https://via.placeholder.com/300x180/ffd3b6/5a4b5c?text=Itali+RSX", isFavorite: false },
-      { id: 2, brand: "Pegassi", name: "Zentorno", price: 725000, image: "https://via.placeholder.com/300x180/ffb7c5/5a4b5c?text=Zentorno", isFavorite: true },
-      { id: 3, brand: "Pfister", name: "Comet S2", price: 1878000, image: "https://via.placeholder.com/300x180/d8b4fe/5a4b5c?text=Comet+S2", isFavorite: false }
+      { id: 1, brand: "Grotti", name: "Itali RSX", price: 3465000, image: "https://via.placeholder.com/300x180/e2e8f0/475569?text=Itali+RSX", isFavorite: false },
+      { id: 2, brand: "Pegassi", name: "Zentorno", price: 725000, image: "https://via.placeholder.com/300x180/e2e8f0/475569?text=Zentorno", isFavorite: true },
+      { id: 3, brand: "Pfister", name: "Comet S2", price: 1878000, image: "https://via.placeholder.com/300x180/e2e8f0/475569?text=Comet+S2", isFavorite: false }
     ];
 
     let cars = JSON.parse(localStorage.getItem('fivem_vehicle_catalog_cute')) || initialCars;
@@ -517,7 +547,7 @@
       catalogContainer.innerHTML = "";
 
       if (carList.length === 0) {
-        catalogContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-sub);">該当するお車が見つかりませんでした 🚗</div>`;
+        catalogContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-sub);">該当するお車が見つかりませんでした</div>`;
         return;
       }
 
@@ -530,7 +560,7 @@
         carCard.innerHTML = `
           <button class="btn-fav-star ${favClass}" onclick="toggleFavorite(${car.id})" title="お気に入り">★</button>
           <div class="car-img-container">
-            <img src="${car.image || 'https://via.placeholder.com/300x180/f3e8ff/8c689c?text=No+Image'}" alt="${car.name}">
+            <img src="${car.image || 'https://via.placeholder.com/300x180/e2e8f0/475569?text=No+Image'}" alt="${car.name}">
           </div>
           <div class="car-info">
             <span class="car-brand">${car.brand}</span>
@@ -565,7 +595,7 @@
       let image = document.getElementById("carImage").value.trim();
 
       if (!image) {
-        image = `https://via.placeholder.com/300x180/ffb7c5/5a4b5c?text=${encodeURIComponent(brand + ' ' + name)}`;
+        image = `https://via.placeholder.com/300x180/e2e8f0/475569?text=${encodeURIComponent(brand + ' ' + name)}`;
       }
 
       const newCar = {
@@ -583,7 +613,6 @@
       updateBrandFilters();
       applyFilters();
 
-      // フォームを閉じずにリセットし、最初の入力欄へフォーカス
       this.reset();
       brandInput.focus();
     });
